@@ -4,29 +4,29 @@
 ID3D11Buffer* vertexBuffer;
 
 /*
-inputlayout ¿ÀºêÁ§Æ® : ¾î¶² VertexBufferÀÇ ¾î´À µ¥ÀÌÅÍ°¡ Æ÷ÇÔµÇ¾î ÀÖ°í,
-Shader¿¡ ¾î¶² ½ÄÀ¸·Î ³Ñ±æ °ÍÀÎ°¡¸¦ IA¿¡°Ô ¾Ë·ÁÁÖ±â À§ÇØ ÇÊ¿äÇÔ
+inputlayout ì˜¤ë¸Œì íŠ¸ : ì–´ë–¤ VertexBufferì˜ ì–´ëŠ ë°ì´í„°ê°€ í¬í•¨ë˜ì–´ ìˆê³ ,
+Shaderì— ì–´ë–¤ ì‹ìœ¼ë¡œ ë„˜ê¸¸ ê²ƒì¸ê°€ë¥¼ IAì—ê²Œ ì•Œë ¤ì£¼ê¸° ìœ„í•´ í•„ìš”í•¨
 */
 
-ID3D11InputLayout* inputLayout; // Á¤Á¡µéÀ» .fx·Î Àü´ŞÇÏ´Â ¿ªÇÒ, IA
-D3D11_INPUT_ELEMENT_DESC layoutDesc[] = // inputLayoutÀÇ DESC
+ID3D11InputLayout* inputLayout; // ì •ì ë“¤ì„ .fxë¡œ ì „ë‹¬í•˜ëŠ” ì—­í• , IA
+D3D11_INPUT_ELEMENT_DESC layoutDesc[] = // inputLayoutì˜ DESC
 {
 	{
-		"POSITION", // .fxÀÇ POSITION (½Ã¸àÆ½ ÀÌ¸§)
-		0, // .fxÀÇ POSITION µÚ¿¡ºÙ´Â ÀÎµ¦½º¹øÈ£ 0¹ø (½Ã¸àÆ½ ÀÎµ¦½º)
-		DXGI_FORMAT_R32G32B32_FLOAT, // Æ÷¸Ë Çü½Ä
-		0, // ÀÔ·Â½½·ÔÀÇ ÀÎµ¦½º °ª
-		0, // VertexDataÀÇ Ã³À½¿¡¼­ ¿ä¼Ò±îÁöÀÇ ¿ÀÇÁ¼Â
-		D3D11_INPUT_PER_VERTEX_DATA, // µ¥ÀÌÅÍ Á¾·ù?
-		0 // ÀÎ½ºÅÏ½º ¹øÈ£
+		"POSITION", // .fxì˜ POSITION (ì‹œë©˜í‹± ì´ë¦„)
+		0, // .fxì˜ POSITION ë’¤ì—ë¶™ëŠ” ì¸ë±ìŠ¤ë²ˆí˜¸ 0ë²ˆ (ì‹œë©˜í‹± ì¸ë±ìŠ¤)
+		DXGI_FORMAT_R32G32B32_FLOAT, // í¬ë§· í˜•ì‹
+		0, // ì…ë ¥ìŠ¬ë¡¯ì˜ ì¸ë±ìŠ¤ ê°’
+		0, // VertexDataì˜ ì²˜ìŒì—ì„œ ìš”ì†Œê¹Œì§€ì˜ ì˜¤í”„ì…‹
+		D3D11_INPUT_PER_VERTEX_DATA, // ë°ì´í„° ì¢…ë¥˜?
+		0 // ì¸ìŠ¤í„´ìŠ¤ ë²ˆí˜¸
 	},
 	{
-		// ÄÃ·¯Ãß°¡
+		// ì»¬ëŸ¬ì¶”ê°€
 		"COLOR",
 		0,
 		DXGI_FORMAT_R32G32B32_FLOAT,
 		0,
-		12, // 0ºÎÅÍ 11±îÁö´Â À§ÀÇ Vertex Á¤º¸¶ó¼­ 12ºÎÅÍ
+		12, // 0ë¶€í„° 11ê¹Œì§€ëŠ” ìœ„ì˜ Vertex ì •ë³´ë¼ì„œ 12ë¶€í„°
 		D3D11_INPUT_PER_VERTEX_DATA,
 		0
 	}
@@ -41,29 +41,29 @@ struct Vertex
 
 void InitScene()
 {
-	// Direct ÁÂÇ¥´Â È­¸é °¡¿îµ¥°¡ (0, 0)
-	// ¿ŞÂÊ ÃÖ´ë -1 ¿À¸¥ÂÊ ÃÖ´ë 1 À§·Î ÃÖ´ë 1 ¾Æ·¡·Î ÃÖ´ë -1
+	// Direct ì¢Œí‘œëŠ” í™”ë©´ ê°€ìš´ë°ê°€ (0, 0)
+	// ì™¼ìª½ ìµœëŒ€ -1 ì˜¤ë¥¸ìª½ ìµœëŒ€ 1 ìœ„ë¡œ ìµœëŒ€ 1 ì•„ë˜ë¡œ ìµœëŒ€ -1
 
-	// Á¤Á¡ÀÇ À§Ä¡ ¼¼ÆÃ
+	// ì •ì ì˜ ìœ„ì¹˜ ì„¸íŒ…
 	Vertex vertices[4];
 
-	vertices[0] = { D3DXVECTOR3(0.0f, -0.5f, 0.0f), D3DXCOLOR(1,0,0,1) };
+	vertices[0] = { D3DXVECTOR3(0.5f, -0.5f, 0.0f), D3DXCOLOR(1,0,0,1) };
 	vertices[1] = { D3DXVECTOR3(-0.5f, -0.5f, 0.0f), D3DXCOLOR(1,0,0,1) };
 	vertices[2] = { D3DXVECTOR3(-0.5f, 0.5f, 0.0f), D3DXCOLOR(1,0,0,1) };
 	vertices[3] = { D3DXVECTOR3(0.5f, -0.5f, 0.0f), D3DXCOLOR(1,0,0,1) };
 
 
-	// GPU´Â float ¹Û¿¡ ¸ğ¸¥´Ù. ²À ¹öÆÛ¸¦ °ÅÃÄ¼­ º¸³»¾ßÇÔ
+	// GPUëŠ” float ë°–ì— ëª¨ë¥¸ë‹¤. ê¼­ ë²„í¼ë¥¼ ê±°ì³ì„œ ë³´ë‚´ì•¼í•¨
 	// Create VertexBuffer
 	{
 		D3D11_BUFFER_DESC desc;
 		ZeroMemory(&desc, sizeof(D3D11_BUFFER_DESC));
-		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//¹öÅØ½º¸¦ ´ã±âÀ§ÇÑ ¹öÆÛ·Î
-		desc.ByteWidth = sizeof(Vertex) * 4; // Á¤Á¡ °³¼ö¸¸Å­
-		desc.CPUAccessFlags = 0; // CPU ¿¢¼¼½º X
-		desc.Usage = D3D11_USAGE_DEFAULT; // ±âº»°ª
+		desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;//ë²„í…ìŠ¤ë¥¼ ë‹´ê¸°ìœ„í•œ ë²„í¼ë¡œ
+		desc.ByteWidth = sizeof(Vertex) * 4; // ì •ì  ê°œìˆ˜ë§Œí¼
+		desc.CPUAccessFlags = 0; // CPU ì—‘ì„¸ìŠ¤ X
+		desc.Usage = D3D11_USAGE_DEFAULT; // ê¸°ë³¸ê°’
 
-		D3D11_SUBRESOURCE_DATA data; // ¹öÆÛ¿¡ ³ÖÀ» µ¥ÀÌÅÍ
+		D3D11_SUBRESOURCE_DATA data; // ë²„í¼ì— ë„£ì„ ë°ì´í„°
 		ZeroMemory(&data, sizeof(D3D11_SUBRESOURCE_DATA));
 		data.pSysMem = vertices;
 
@@ -77,9 +77,9 @@ void InitScene()
 		(
 			layoutDesc,
 			ARRAYSIZE(layoutDesc),
-			VsBlob->GetBufferPointer(), // ¹ÙÀÌÅ© ÄÚµåÀÇ Æ÷ÀÎÅÍ
-			VsBlob->GetBufferSize(), // ¹ÙÀÌÆ® ÄÚµåÀÇ »çÀÌÁî
-			&inputLayout // ³Ñ°Ü ¹ŞÀ» ·¹ÀÌ¾Æ¿ô Æ÷ÀÎÅÍ
+			VsBlob->GetBufferPointer(), // ë°”ì´í¬ ì½”ë“œì˜ í¬ì¸í„°
+			VsBlob->GetBufferSize(), // ë°”ì´íŠ¸ ì½”ë“œì˜ ì‚¬ì´ì¦ˆ
+			&inputLayout // ë„˜ê²¨ ë°›ì„ ë ˆì´ì•„ì›ƒ í¬ì¸í„°
 		);
 		assert(SUCCEEDED(hr));
 	}
@@ -103,26 +103,26 @@ void Render()
 	DeviceContext->ClearRenderTargetView(RTV, bgColor);
 
 	{
-		// ±×·ÁÁÙ ÄÚµå ÀÛ¼º
+		// ê·¸ë ¤ì¤„ ì½”ë“œ ì‘ì„±
 		UINT srtide = sizeof(Vertex);
 		UINT offset = 0;
 
-		// ¿Ş¼Õ ÁÂÇ¥°èÀÌ¹Ç·Î »ï°¢ÇüÀº ¹«Á¶°Ç ½Ã°è¹æÇâÀ¸·Î ±×·Á¾ßÇÑ´Ù. ¾Æ´Ï¸é ¾È±×·ÁÁü
-		DeviceContext->IASetVertexBuffers// ¹öÅØ½º ¹öÆÛ ¼³Á¤
+		// ì™¼ì† ì¢Œí‘œê³„ì´ë¯€ë¡œ ì‚¼ê°í˜•ì€ ë¬´ì¡°ê±´ ì‹œê³„ë°©í–¥ìœ¼ë¡œ ê·¸ë ¤ì•¼í•œë‹¤. ì•„ë‹ˆë©´ ì•ˆê·¸ë ¤ì§
+		DeviceContext->IASetVertexBuffers// ë²„í…ìŠ¤ ë²„í¼ ì„¤ì •
 		(
 			0, 1,
 			&vertexBuffer, &srtide, &offset
 		);
 
-		DeviceContext->IASetInputLayout(inputLayout); // ·¹ÀÌ¾Æ¿ô ¼³Á¤
+		DeviceContext->IASetInputLayout(inputLayout); // ë ˆì´ì•„ì›ƒ ì„¤ì •
 
-		// ¾î¶² ÇüÅÂ·Î ·»´õ¸µ ÇÒ°ÍÀÎ°¡.
+		// ì–´ë–¤ í˜•íƒœë¡œ ë Œë”ë§ í• ê²ƒì¸ê°€.
 		DeviceContext->IASetPrimitiveTopology
 		(
 			D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP
 		);
 
-		DeviceContext->Draw(6, 0); // Á¤Á¡°³¼ö, ¹è¿­ÀÇ ½ÃÀÛ ÀÎµ¦½º °ª
+		DeviceContext->Draw(6, 0); // ì •ì ê°œìˆ˜, ë°°ì—´ì˜ ì‹œì‘ ì¸ë±ìŠ¤ ê°’
 	}
 
 	SwapChain->Present(0, 0);
